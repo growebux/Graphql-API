@@ -1,14 +1,21 @@
-const { GraphQLInt } = require("graphql");
 const graphql = require("graphql");
 const _ = require("lodash");
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLSchema,
+  GraphQLList,
+  GraphQLID,
+} = graphql;
 
 //Dummy Data
 const movies = [
   { name: "A", genre: "Action", id: "1", directorId: "1" },
   { name: "B", genre: "Drama", id: "2", directorId: "2" },
-  { name: "C", genre: "Suspense", id: "3", directorId: "3" },
+  { name: "D", genre: "Suspense", id: "3", directorId: "2" },
+  { name: "E", genre: "Suspense", id: "4", directorId: "3" },
 ];
 
 const directors = [
@@ -43,6 +50,12 @@ const DirectorType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     age: { type: GraphQLInt },
+    movies: {
+      type: new GraphQLList(MovieType),
+      resolve(parent, args) {
+        return _.filter(movies, { directorId: parent.id });
+      },
+    },
   }),
 });
 
