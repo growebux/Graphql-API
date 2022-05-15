@@ -14,12 +14,6 @@ const dotenv = require("dotenv").config({ path: "./config.env" });
 
 const app = express();
 
-// CONNECTION_URL =
-//   "mongodb+srv://RafaelTraining:981506478@cluster0.yujwq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// mongoose.connect(CONNECTION_URL);
-// mongoose.connection.once("open", () => {
-//   console.log("Connection Successful");
-// });
 const DB = process.env.DATABASE;
 mongoose.connect(DB, { useNewUrlParser: true });
 
